@@ -1,6 +1,23 @@
 # zfspider
 正方教务成绩爬虫
-
+# 使用
+## 文件结构
+```
+spider.py 爬虫主程序(返回未处理的网页，并保存为 用户名+.text)
+cookfood.py 结果整理程序(返回处理完成的html字符串，以供服务端调用)
+```
+## 步骤
+- 设置spider.py的配置项
+```
+gnmkdm = 'N123456'    gnmkdm值
+host_list = ['http://127.0.0.1', 'http://127.0.0.1']  教务网服务器地址
+```
+- 设置账号密码姓名
+```
+if __name__ == '__main__':
+    zf_spider('123456789', 'password', '张三')
+```
+- 使用cookfood.py处理结果
 # 代码预览
 
 ```
