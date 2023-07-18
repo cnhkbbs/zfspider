@@ -69,7 +69,7 @@ async def getresult(re_item: ResultModel):
 if __name__ == '__main__':
     print_INFO("尝试启动")
     print("*" * 100)
-    print("作者博客 https://sboxm.github.io")
+    print("blog https://sboxm.github.io")
     print("*" * 100)
     print_INFO("本项目已开源 获取使用提示请访问 https://github.com/cnhkbbs/zfspider")
     uvicorn.run(app)
