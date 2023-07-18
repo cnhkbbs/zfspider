@@ -3,14 +3,15 @@
 # 20230520
 # by sboxm
 # --------------------
+# 爬虫部分
 from bs4 import BeautifulSoup as bf
 import requests
 import ddddocr
 import datetime
 import urllib.parse
 
-gnmkdm = 'N123456'
-host_list = ['http://127.0.0.1', 'http://127.0.0.1']
+gnmkdm = 'N121605'
+host_list = ['http://127.0.0.1', 'http://127.0.0.1, 'http://127.0.0.1, 'http://127.0.0.1]
 headers = [{
                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.82 Safari/537.36"},
            {
@@ -51,10 +52,11 @@ def zf_spider(username, password, name, host=0, header=0):
     try:
         login_page = session.get(host_list[host], headers=headers[header])
     except requests.exceptions:
-        return {'massage': 'request error', 'status': False}
+        print_ERROR('Connection to target server failed')
+        return False
     if login_page.status_code != 200:
-        print_ERROR('访问被拒绝')
-        return {'massage': '501Error', 'status': False}
+        print_ERROR(host_list[host]+'Access was denied')
+        return False
 
     # 响应处理
     basic_url = login_page.url[0:49]
@@ -67,7 +69,7 @@ def zf_spider(username, password, name, host=0, header=0):
     checkcode = CheckCode(basic_url, headers[header])
     if not checkcode:
         print_ERROR('验证码识别出错')
-        return {'massage': 'get checkcode false', 'status': False}
+        return False
     else:
         print_INFO('获取到的验证码:' + str(checkcode))
     pass
@@ -98,10 +100,11 @@ def zf_spider(username, password, name, host=0, header=0):
     try:
         try_login = requests.session().post(basic_url + "default2.aspx", data=login_data, headers=login_header)
     except requests.exceptions:
-        return {'massage': 'request error', 'status': False}
+        print_ERROR('Connection to target server failed')
+        return False
     if try_login.status_code != 200:
         print_ERROR('尝试登录失败')
-        return {'massage': 'request forbidden', 'status': False}
+        return False
     else:
         print_INFO('尝试登录成功')
 
@@ -121,10 +124,11 @@ def zf_spider(username, password, name, host=0, header=0):
             basic_url + "xscjcx.aspx?xh=" + username + "&xm=" + urllib.parse.quote(name) + "&gnmkdm="+gnmkdm,
             headers=new_header)
     except requests.exceptions:
-        return {'massage': 'request error', 'status': False}
+        print_ERROR("request error")
+        return False
     if new_resp.status_code != 200:
         print_ERROR('获取新VIEWSTATE失败')
-        return {'massage': 'get new viewstate failed', 'status': False}
+        return False
     else:
         print_INFO('获取VIEWSTATE成功')
     new_page_soup = bf(new_resp.text, 'html.parser')
@@ -158,16 +162,13 @@ def zf_spider(username, password, name, host=0, header=0):
             basic_url + "xscjcx.aspx?xh=" + username + "&xm=" + urllib.parse.quote(name) + "&gnmkdm="+gnmkdm,
             data=score_data, headers=score_header)
     except requests.exceptions:
-        return {'massage': 'request error', 'status': False}
+        print_ERROR('Connection to target server failed')
+        return False
     if score.status_code != 200:
         print_ERROR('查询失败')
-        return {'massage': 'getting scores failed', 'status': False}
+        return False
     else:
         print_INFO('查询成功')
-    with open('scores/' + username + '.txt', 'w', encoding='utf-8') as save:
+    with open(username + '.txt', 'w', encoding='utf-8') as save:
         save.write(score.text)
-    return {'massage': 'succeed', 'status': True}
-
-
-if __name__ == '__main__':
-    zf_spider('123456789', 'password', '张三')
+    return True
