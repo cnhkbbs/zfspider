@@ -6,8 +6,8 @@
 # fastapi服务
 
 import uvicorn
-from fastapi import FastAPI, Header, Form, BackgroundTasks
-from fastapi.responses import JSONResponse, HTMLResponse
+from fastapi import FastAPI, Form
+from fastapi.responses import HTMLResponse
 import datetime
 import cookfood
 import spider
