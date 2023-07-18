@@ -1,0 +1,100 @@
+ <!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>查询助手</title>
+		<script>
+			function check() {
+				var name = document.getElementById("name");
+				var password = document.getElementById("password");
+				var chinesename = document.getElementById("chinesename");
+				if (name.value.length == 0 || password.value.length == 0 || chinesename.value.length == 0) {
+					alert("表单数据不全");
+					return false;
+				}
+				return true;
+			}
+			function getresult(){
+				const ajax = new XMLHttpRequest();
+				var result_name = document.getElementById('result_username').value;
+				if (result_name.length == 0){
+					alert("请填写账号");
+				}
+				ajax.open('post','getresult',true);
+				ajax.setRequestHeader('Content-Type', 'application/json');
+				var data = {name: result_name};
+				ajax.send(JSON.stringify(data));
+				ajax.onload = function() {
+				  if (ajax.status === 200) {
+				    var resultframe = document.getElementById('resultframe');
+					resultframe.innerHTML = ajax.responseText;
+				  } else {
+				    console.log('Error: ' + ajax.status);
+				  }
+				};
+			}
+		</script>
+		<style>
+			#useguide{
+				color: blue;cursor: help;
+			}
+			#useguide:hover{
+				font-size: 2em;
+			}
+		</style>
+	</head>
+	<body>
+		<script>
+			setInterval("get_status()", 5000);
+			function get_status() {
+				var article = document.getElementById("article");
+				const xhr = new XMLHttpRequest();
+				xhr.open('post', '/hi', true);
+				xhr.send();
+				xhr.onreadystatechange = function() {
+					if (xhr.readyState === 4) {
+						if (xhr.status >= 200 && xhr.status < 300) {
+							console.log(xhr.response);
+						} else {
+							article.innerHTML = "服务器心跳包丢失";
+						}
+					}
+				}
+			}
+		</script>
+		<header style="width: 100%;"><a href="https://github.com/cnhkbbs/zfspider/blob/main/LICENSE">开源协议</a></header>
+		<article style="width: 65%;margin: 0 auto;text-align: center;" id="article">
+			<a style="font-size: 3rem;">查询助手</a><a id="useguide" href="https://github.com/cnhkbbs/zfspider" target="_blank">使用指南</a>
+			<form action="submit" method="post" onsubmit="return check();">
+				<a>账号：</a><input name="name" id="name" type="text" /><br />
+				<a>密码：</a><input name="password" id="password" type="password" /><br />
+				<a>姓名：</a><input name="chinesename" id="chinesename" type="text" /><br />
+				<a>Header</a>
+				<select name="header">
+					<option value="0">0</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+				</select>
+				<br />
+				<a>host</a>
+				<select name="host">
+					<option value="0">0</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+				</select><br />
+				<input type="submit" value="提交任务">
+			</form>
+			<hr>
+			<div id="getresult">
+				<a>获取结果</a><br />
+				账号：<input type="text" name="result_username" id="result_username"/>
+				<button onclick="getresult()">获取</button>
+				<div id="resultframe"></div>
+			</div>
+		</article>
+		<footer style="text-align: center;"><a href="https://github.com/cnhkbbs/zfspider">Source code</a></footer>
+	</body>
+</html>
