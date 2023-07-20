@@ -10,8 +10,8 @@ import ddddocr
 import datetime
 import urllib.parse
 
-gnmkdm = 'N121605'
-host_list = ['http://127.0.0.1', 'http://127.0.0.1, 'http://127.0.0.1, 'http://127.0.0.1]
+gnmkdm = 'N123456'
+host_list = ['http://127.0.0.1', 'http://127.0.0.1', 'http://127.0.0.1', 'http://127.0.0.1']
 headers = [{
                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.82 Safari/537.36"},
            {
