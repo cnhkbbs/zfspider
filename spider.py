@@ -41,7 +41,7 @@ def CheckCode(url, head):
         return False
     with open('checkdoce.png', 'wb') as img:
         img.write(checkcode_img)
-    ocr = ddddocr.DdddOcr(show_ad=False)
+    ocr = ddddocr.DdddOcr()
     checkcode = ocr.classification(checkcode_img)
     return checkcode
 
