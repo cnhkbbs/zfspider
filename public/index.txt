@@ -62,7 +62,6 @@
 				}
 			}
 		</script>
-		<header style="width: 100%;"><a href="https://github.com/cnhkbbs/zfspider/blob/main/LICENSE">开源协议</a></header>
 		<article style="width: 65%;margin: 0 auto;text-align: center;" id="article">
 			<a style="font-size: 3rem;">查询助手</a><a id="useguide" href="https://github.com/cnhkbbs/zfspider" target="_blank">使用指南</a>
 			<form action="submit" method="post" onsubmit="return check();">
