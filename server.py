@@ -29,7 +29,7 @@ def print_ERROR(error):
     print('[' + datetime.datetime.now().strftime('%H:%M:%S') + ']' + "\033[1;31m" + error + " \033[0m")
 
 
-# 任务异步
+# 执行任务
 async def do_mission(uname, pwd, cname, host, header):
     try:
         spider.zf_spider(uname, pwd, cname, int(host), int(header))
@@ -71,5 +71,5 @@ if __name__ == '__main__':
     print("*" * 100)
     print("blog https://sboxm.github.io")
     print("*" * 100)
-    print_INFO("本项目已开源 获取使用提示请访问 https://github.com/cnhkbbs/zfspider")
+    print_INFO("获取使用提示请访问 https://github.com/cnhkbbs/zfspider")
     uvicorn.run(app)
